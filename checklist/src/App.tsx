@@ -1,10 +1,15 @@
 import { RouterProvider } from 'react-router-dom';
-import './App.css';
-
 import { router } from './pages/router';
+import { ChakraProvider } from '@chakra-ui/react';
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <ChakraProvider>
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    </>
+  );
 }
 
 export default App;
