@@ -1,8 +1,9 @@
-import { Grid, GridItem, HStack } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import { LogButton } from "../components/LogButton";
 import { SelectGame } from "../components/SelectGame";
 import { Outlet } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
+import { Placer } from "../components/Placer";
 
 export function Root(){
     return(
@@ -18,19 +19,19 @@ export function Root(){
             bg='#414C58'
         >
             <GridItem area="select">
-                <HStack px="8" gap="4" h="100%" placeContent="center">
+                <Placer placeContent="center">
                     <SelectGame/>  
-                </HStack>
+                </Placer>
             </GridItem>
             <GridItem area="progress-bar">
-                <HStack px="8" gap="4" h="100%" placeContent="center">
+                <Placer placeContent="center">
                     <ProgressBar/>
-                </HStack>
+                </Placer>
             </GridItem>
             <GridItem area="button">
-                <HStack px="8" gap="4" h="100%" placeContent="end">
+                <Placer placeContent="end">
                     <LogButton/>
-                </HStack>
+                </Placer>
             </GridItem>
             <GridItem area='outlet' bg='#161615'>
                 <Outlet />
