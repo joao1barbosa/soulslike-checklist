@@ -5,7 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 function App() {
   return (
     <>
-      <ChakraProvider>
+      <ChakraProvider resetCSS>
         <RouterProvider router={router} />
       </ChakraProvider>
     </>

@@ -12,14 +12,14 @@ export function Root(){
                 'select progress-bar button'
                 'outlet outlet outlet'
             `}
-            gridTemplateColumns={'1fr 3fr 1fr'}
+            gridTemplateColumns={'2fr 3fr 2fr'}
             gridTemplateRows={'7vh 1fr'}
             gap="1"
             minH="100vh"
             bg='#414C58'
         >
             <GridItem area="select">
-                <Placer placeContent="center">
+                <Placer placeContent="start">
                     <SelectGame/>  
                 </Placer>
             </GridItem>
