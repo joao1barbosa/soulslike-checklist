@@ -1,13 +1,13 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
 // import { supaClient } from '../services/supabase';
-import { Home } from './Home';
+import { Root } from './Root';
 import { Login } from './Login';
 
 export const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home />,
+      element: <Root />,
     },
     {
       path: '/login',
