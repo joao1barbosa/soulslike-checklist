@@ -4,28 +4,12 @@ import { SelectGame } from "../components/SelectGame";
 import { Outlet } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
 import { Placer } from "../components/Placer";
-import { useEffect, useState } from "react";
-import { supaClient } from '../services/supabase';
+import { useSession } from "../hooks/useSession";
 
 export function Root(){
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>();
+    const { isLogged } = useSession();
 
-    const getSession = async () => {
-        const {
-            data: {
-                session
-            }
-        } = await supaClient.auth.getSession();
-
-        setIsLoggedIn(!(!session));
-
-        console.log(isLoggedIn);
-    }
-    
-    useEffect(() => {
-      getSession();
-    });
-
+    console.log(isLogged);
 
     return(
         <Grid
@@ -51,7 +35,7 @@ export function Root(){
             </GridItem>
             <GridItem area="button">
                 <Placer placeContent="end">
-                    <LogButton/>
+                    {!isLogged && <LogButton/>}
                 </Placer>
             </GridItem>
             <GridItem area='outlet' bg='#161615'>
