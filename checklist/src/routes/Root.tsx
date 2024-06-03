@@ -4,8 +4,29 @@ import { SelectGame } from "../components/SelectGame";
 import { Outlet } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
 import { Placer } from "../components/Placer";
+import { useEffect, useState } from "react";
+import { supaClient } from '../services/supabase';
 
 export function Root(){
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>();
+
+    const getSession = async () => {
+        const {
+            data: {
+                session
+            }
+        } = await supaClient.auth.getSession();
+
+        setIsLoggedIn(!(!session));
+
+        console.log(isLoggedIn);
+    }
+    
+    useEffect(() => {
+      getSession();
+    });
+
+
     return(
         <Grid
             templateAreas={`
