@@ -7,8 +7,10 @@ const navigate = useNavigate();
 
     return(
         <Button 
+            h='6vh'
+            w='6vh'
             onClick={() => navigate('/login')}
-            background='#6F5542'
+            background='#81878E'
         >
             <Icon as={FiLogIn} boxSize={6} color='#fff'/>        
         </Button>
