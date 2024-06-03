@@ -29,11 +29,14 @@ export function SelectGame() {
             defaultValue={games[1]}
             styles={styles}
             formatOptionLabel={ game => (
-                <HStack spacing='10px'>
+                <HStack 
+                    spacing='10px'
+                    placeContent={['center', 'start']}
+                >
                     <Image 
                         src={game.image} 
-                        boxSize='45px' 
-                        mx='5px'
+                        boxSize={['6vh', '5vh']}
+                        mx={['0px', '5px']}
                     />
                     <Text size='xl' display={['none', 'block']} >
                         {game.label}

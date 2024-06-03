@@ -17,7 +17,8 @@ export const useResponsiveStyles = () => {
             ...provided,
             background: '#81878E',
             border: 'none',
-            width: isMobile ? '100px' : '240px' 
+            width: isMobile ? '8vh' : '20vw',
+            height: isMobile ? '8vh' : '6vh' 
         }),
         menu: (provided: any) => ({
             ...provided,

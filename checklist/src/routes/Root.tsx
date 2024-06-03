@@ -13,7 +13,7 @@ export function Root(){
                 'outlet outlet outlet'
             `}
             gridTemplateColumns={'2fr 3fr 2fr'}
-            gridTemplateRows={'7vh 1fr'}
+            gridTemplateRows={['10vh 1fr' ,'7vh 1fr']}
             gap="1"
             minH="100vh"
             bg='#414C58'
