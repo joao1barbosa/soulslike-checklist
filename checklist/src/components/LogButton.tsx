@@ -1,18 +1,28 @@
 import { Button, Icon } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { FiLogIn } from "react-icons/fi";
+import { FiLogIn, FiLogOut } from "react-icons/fi";
+import { useSession } from "../hooks/useSession";
+import { useSignOut } from "../hooks/useSignOut";
 
 export function LogButton(){
 const navigate = useNavigate();
+const { isLogged } = useSession();
+const { signOut } = useSignOut();
 
     return(
         <Button 
             h='6vh'
             w='6vh'
-            onClick={() => navigate('/login')}
+            onClick={ isLogged ? signOut : () => navigate('/login') }
             background='#81878E'
         >
-            <Icon as={FiLogIn} boxSize={6} color='#fff'/>        
+            <Icon 
+                as={
+                    isLogged ? FiLogOut : FiLogIn
+                } 
+                boxSize={6} 
+                color='#fff'
+            />        
         </Button>
     );
 }
