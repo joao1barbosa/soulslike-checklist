@@ -11,8 +11,8 @@ export const router = createBrowserRouter([
       element: <Root />,
       children: [
         {
-          path: '/demonssouls',
-          element: <Board />,
+          path: '/darksouls',
+          element: <Board game='ds1'/>,
         },
       ],
     },

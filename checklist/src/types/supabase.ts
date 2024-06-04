@@ -41,7 +41,7 @@ export type Database = {
           id: number
           name: string
           optional: boolean
-          picture: string
+          picture: string | null
         }
         Insert: {
           dlc: boolean
@@ -49,7 +49,7 @@ export type Database = {
           id?: number
           name: string
           optional: boolean
-          picture: string
+          picture?: string | null
         }
         Update: {
           dlc?: boolean
@@ -57,7 +57,7 @@ export type Database = {
           id?: number
           name?: string
           optional?: boolean
-          picture?: string
+          picture?: string | null
         }
         Relationships: []
       }

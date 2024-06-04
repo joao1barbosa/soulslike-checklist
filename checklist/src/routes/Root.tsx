@@ -4,12 +4,8 @@ import { SelectGame } from "../components/SelectGame";
 import { Outlet } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
 import { Placer } from "../components/Placer";
-import { useSession } from "../hooks/useSession";
 
 export function Root(){
-    const { isLogged } = useSession();
-
-    console.log(isLogged);
 
     return(
         <Grid
@@ -35,7 +31,7 @@ export function Root(){
             </GridItem>
             <GridItem area="button">
                 <Placer placeContent="end">
-                    {!isLogged && <LogButton/>}
+                    <LogButton/>
                 </Placer>
             </GridItem>
             <GridItem area='outlet' bg='#161615'>

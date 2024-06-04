@@ -1,4 +1,5 @@
 import { useResponsiveStyles } from '../hooks/useResponsiveStyles';
+import { useNavigate } from 'react-router-dom';
 import { Image, HStack, Text } from '@chakra-ui/react';
 import Select from 'react-select';
 
@@ -11,14 +12,16 @@ import skIcon from '../assets/sekiro-icon.png';
 import erIcon from '../assets/eldenring-icon.png';
 
 export function SelectGame() {
+    const navigate = useNavigate();
+
     const games = [
-        { value: 'demonsSouls', label: `Demon's Souls`, image: dsIcon },
-        { value: 'darkSouls', label: `Dark Souls`, image: ds1Icon },
-        { value: 'darkSouls2', label: `Dark Souls 2`, image: ds2Icon },
+        { value: 'demonssouls', label: `Demon's Souls`, image: dsIcon },
+        { value: 'darksouls', label: `Dark Souls`, image: ds1Icon },
+        { value: 'darksouls2', label: `Dark Souls 2`, image: ds2Icon },
         { value: 'bloodborne', label: `Bloodborne`, image: bbIcon },
-        { value: 'darkSouls3', label: `Dark Souls 3`, image: ds3Icon },
+        { value: 'darksouls3', label: `Dark Souls 3`, image: ds3Icon },
         { value: 'sekiro', label: `Sekiro`, image: skIcon },
-        { value: 'eldenRing', label: `Elden Ring`, image: erIcon }
+        { value: 'eldenring', label: `Elden Ring`, image: erIcon }
     ];
 
     const styles = useResponsiveStyles();
@@ -28,6 +31,12 @@ export function SelectGame() {
             options={games}
             defaultValue={games[1]}
             styles={styles}
+            onChange={ (choice) =>{
+                navigate(
+                    ('/' + choice?.value),
+                    { replace: true }
+                );
+            } }
             formatOptionLabel={ game => (
                 <HStack 
                     spacing='10px'
