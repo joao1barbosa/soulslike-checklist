@@ -16,7 +16,7 @@ export function SelectGame() {
 
     const games = [
         { value: 'demonssouls', label: `Demon's Souls`, image: dsIcon },
-        { value: 'darksouls', label: `Dark Souls`, image: ds1Icon },
+        { value: '', label: `Dark Souls`, image: ds1Icon },
         { value: 'darksouls2', label: `Dark Souls 2`, image: ds2Icon },
         { value: 'bloodborne', label: `Bloodborne`, image: bbIcon },
         { value: 'darksouls3', label: `Dark Souls 3`, image: ds3Icon },
