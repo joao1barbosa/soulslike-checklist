@@ -51,7 +51,7 @@ export function Board({ game }: Props){
         >
             {chosenGames.map(boss => (
                 <BossCard key={boss.id} boss={boss}/>
-            ))};
+            ))}
         </Wrap>
     );
 }

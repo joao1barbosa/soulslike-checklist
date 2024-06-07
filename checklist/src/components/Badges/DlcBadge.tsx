@@ -2,7 +2,6 @@ import { Badge, Box } from "@chakra-ui/react";
 
 export function DlcBadge(){
     return(
-        <Box>
             <Badge
                 colorScheme="purple"
                 variant="subtle"
@@ -11,6 +10,5 @@ export function DlcBadge(){
             >
                 DLC
             </Badge>
-        </Box>
     );
 }

@@ -45,12 +45,16 @@ export function BossCard({ boss }: Props){
                         </Box>
                 </VStack>
                 <Divider color='#c5c5c5'/> 
-                <CardFooter h='2vh'>
+                <CardFooter h='3vh' m='1.5vh'>
                     <Center 
                         justifyContent='center'
                         w='100%'
                     >
-                        <Text as='b' color='#ffffff'>{boss.name}</Text>
+                        <Text 
+                            as='b' 
+                            color='#ffffff'
+                            textAlign="center"
+                        >{boss.name}</Text>
                     </Center>
                 </CardFooter>
             </Card>
