@@ -6,17 +6,20 @@ import { DlcBadge } from './Badges/DlcBadge';
 import { OptionalBadge } from './Badges/OptionalBadge';
 
 interface Props{
-    boss: Boss
+    boss: Boss;
+    selected: boolean;
+    onSelect: () => void;
 }
 
-export function BossCard({ boss }: Props){
+export function BossCard({ boss, selected, onSelect }: Props){
     return (
-        <WrapItem>
+        <WrapItem onClick={onSelect} cursor='pointer'>
             <Card
                 h='30vh'
                 w='25vh'
                 m='15px'
-                background='#6F5542'
+                background={selected ? '#4B3621' : '#6F5542'}
+                border={selected ? '1px solid #9c9c9c' : '0px'}
                 opacity={0.8}
             >
                 <VStack

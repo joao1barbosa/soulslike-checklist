@@ -10,9 +10,10 @@ interface Props{
 }
 
 export function Board({ game }: Props){
-    const [chosenGames, setChosenGames] = useState<Boss[]>([]);
+    const [chosenGame, setChosenGame] = useState<Boss[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedBosses, setSelectedBosses] = useState<number[]>([]);
 
     useEffect(() => {
         const getBosses = async (value: string) => {
@@ -26,7 +27,7 @@ export function Board({ game }: Props){
 
                 if (error) throw error;
 
-                setChosenGames(data);
+                setChosenGame(data);
 
             } catch (error: any) {
                 setError(error);
@@ -37,6 +38,14 @@ export function Board({ game }: Props){
 
         getBosses(game);
     }, [game]);
+
+    const handleSelect = (bossId: number) => {
+        setSelectedBosses((prevSelected) =>
+          prevSelected.includes(bossId)
+            ? prevSelected.filter((id) => id !== bossId)
+            : [...prevSelected, bossId]
+        );
+      };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -49,8 +58,13 @@ export function Board({ game }: Props){
             h='100%'
             w='100%'
         >
-            {chosenGames.map(boss => (
-                <BossCard key={boss.id} boss={boss}/>
+            {chosenGame.map(boss => (
+                <BossCard 
+                    key={boss.id} 
+                    boss={boss}
+                    selected={selectedBosses.includes(boss.id)}
+                    onSelect={()=> handleSelect(boss.id)}
+                />
             ))}
         </Wrap>
     );
