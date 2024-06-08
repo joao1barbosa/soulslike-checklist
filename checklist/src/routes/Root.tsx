@@ -27,9 +27,7 @@ export function Root(){
                     </Placer>
                 </GridItem>
                 <GridItem area="progress-bar">
-                    <Placer placeContent="center">
-                        <ProgressBar/>
-                    </Placer>
+                    <ProgressBar/>
                 </GridItem>
                 <GridItem area="button">
                     <Placer placeContent="end">

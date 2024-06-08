@@ -14,7 +14,7 @@ export function Board({ game }: Props){
     const [chosenGame, setChosenGame] = useState<Boss[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const { selectedBosses, toggleBossSelection } = useSelection();
+    const { setTotalBosses, selectedBosses, toggleBossSelection } = useSelection();
 
     useEffect(() => {
         const getBosses = async (value: string) => {
@@ -28,6 +28,7 @@ export function Board({ game }: Props){
 
                 if (error) throw error;
 
+                // setTotalBosses(data[data.length].id - data[0].id);
                 setChosenGame(data);
 
             } catch (error: any) {

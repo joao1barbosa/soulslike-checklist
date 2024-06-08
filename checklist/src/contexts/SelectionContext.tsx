@@ -1,11 +1,15 @@
-import { PropsWithChildren, createContext, useState } from 'react';
+import { Dispatch, PropsWithChildren, SetStateAction, createContext, useState } from 'react';
 
 interface SelectionContextType {
+  totalBosses: number;
+  setTotalBosses: Dispatch<SetStateAction<number>>;
   selectedBosses: number[];
   toggleBossSelection: (bossId: number) => void;
 }
 
 const defaultValue: SelectionContextType = {
+  totalBosses: 0,
+  setTotalBosses: () => {},
   selectedBosses: [],
   toggleBossSelection: () => {},
 };
@@ -14,6 +18,7 @@ export const SelectionContext = createContext<SelectionContextType>(defaultValue
 
 export function SelectionProvider({ children }: PropsWithChildren){
   const [selectedBosses, setSelectedBosses] = useState<number[]>([]);
+  const [totalBosses, setTotalBosses] = useState<number>(0);
 
   const toggleBossSelection = (bossId: number) => {
     setSelectedBosses((prevSelected) =>
@@ -24,7 +29,7 @@ export function SelectionProvider({ children }: PropsWithChildren){
   };
 
   return (
-    <SelectionContext.Provider value={{ selectedBosses, toggleBossSelection }}>
+    <SelectionContext.Provider value={{totalBosses, setTotalBosses, selectedBosses, toggleBossSelection }}>
       {children}
     </SelectionContext.Provider>
   );
