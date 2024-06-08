@@ -4,6 +4,7 @@ import { BossCard } from "./BossCard";
 import { supaClient } from "../services/supabase";
 import { useEffect, useState } from "react";
 import { Boss } from "../types/boss";
+import { useSelection } from "../hooks/useSelection";
 
 interface Props{
     game: string
@@ -13,7 +14,7 @@ export function Board({ game }: Props){
     const [chosenGame, setChosenGame] = useState<Boss[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedBosses, setSelectedBosses] = useState<number[]>([]);
+    const { selectedBosses, toggleBossSelection } = useSelection();
 
     useEffect(() => {
         const getBosses = async (value: string) => {
@@ -39,14 +40,6 @@ export function Board({ game }: Props){
         getBosses(game);
     }, [game]);
 
-    const handleSelect = (bossId: number) => {
-        setSelectedBosses((prevSelected) =>
-          prevSelected.includes(bossId)
-            ? prevSelected.filter((id) => id !== bossId)
-            : [...prevSelected, bossId]
-        );
-      };
-
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
@@ -63,7 +56,7 @@ export function Board({ game }: Props){
                     key={boss.id} 
                     boss={boss}
                     selected={selectedBosses.includes(boss.id)}
-                    onSelect={()=> handleSelect(boss.id)}
+                    onSelect={()=> toggleBossSelection(boss.id)}
                 />
             ))}
         </Wrap>
