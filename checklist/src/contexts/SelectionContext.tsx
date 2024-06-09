@@ -1,4 +1,7 @@
-import { Dispatch, PropsWithChildren, SetStateAction, createContext, useState } from 'react';
+import { 
+  Dispatch, PropsWithChildren, SetStateAction,
+  createContext, useDeferredValue, useState 
+} from 'react';
 
 interface SelectionContextType {
   totalBosses: number;
@@ -17,8 +20,9 @@ const defaultValue: SelectionContextType = {
 export const SelectionContext = createContext<SelectionContextType>(defaultValue);
 
 export function SelectionProvider({ children }: PropsWithChildren){
-  const [selectedBosses, setSelectedBosses] = useState<number[]>([]);
+  const [baseSelectedBosses, setSelectedBosses] = useState<number[]>([]);
   const [totalBosses, setTotalBosses] = useState<number>(0);
+  const selectedBosses = useDeferredValue(baseSelectedBosses);
 
   const toggleBossSelection = (bossId: number) => {
     setSelectedBosses((prevSelected) =>

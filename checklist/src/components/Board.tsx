@@ -28,7 +28,7 @@ export function Board({ game }: Props){
 
                 if (error) throw error;
 
-                // setTotalBosses(data[data.length].id - data[0].id);
+                setTotalBosses(data.length);
                 setChosenGame(data);
 
             } catch (error: any) {
@@ -39,7 +39,7 @@ export function Board({ game }: Props){
         };
 
         getBosses(game);
-    }, [game]);
+    }, [game, setTotalBosses]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
