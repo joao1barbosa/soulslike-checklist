@@ -1,4 +1,4 @@
-import { Button, Icon } from "@chakra-ui/react";
+import { Button, Icon, Tooltip } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
 import { useSession } from "../hooks/useSession";
@@ -10,6 +10,13 @@ const { isLogged } = useSession();
 const { signOut } = useSignOut();
 
     return(
+        <Tooltip 
+        hasArrow
+        fontSize='md'
+        bg='#81878E'
+        label={
+            isLogged ? 'Logout' : 'Login'
+        }>
         <Button 
             h='6vh'
             w='6vh'
@@ -24,5 +31,6 @@ const { signOut } = useSignOut();
                 color='#fff'
             />        
         </Button>
+        </Tooltip>
     );
 }
