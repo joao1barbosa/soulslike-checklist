@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Wrap } from "@chakra-ui/react";
-import { BossCard } from "./BossCard";
-import { supaClient } from "../services/supabase";
 import { useEffect, useState } from "react";
-import { Boss } from "../types/boss";
+import { Wrap } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { supaClient } from "../services/supabase";
 import { useSelection } from "../hooks/useSelection";
+import { Boss } from "../types/boss";
+import { BossCard } from "./BossCard";  
 
 interface Props{
     game: string
@@ -44,6 +45,17 @@ export function Board({ game }: Props){
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
+    const variants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: (i: number) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: i * 0.1
+            }
+        })
+    };
+
     return (
         <Wrap
             spacing='24px'
@@ -52,13 +64,21 @@ export function Board({ game }: Props){
             h='100%'
             w='100%'
         >
-            {chosenGame.map(boss => (
-                <BossCard 
-                    key={boss.id} 
-                    boss={boss}
-                    selected={selectedBosses.includes(boss.id)}
-                    onSelect={()=> toggleBossSelection(boss.id)}
-                />
+            {chosenGame.map((boss, index) => (
+                <motion.div
+                    key={boss.id}
+                    custom={index}
+                    initial="hidden"
+                    animate="visible"
+                    variants={variants}
+                >
+                    <BossCard 
+                        key={boss.id} 
+                        boss={boss}
+                        selected={selectedBosses.includes(boss.id)}
+                        onSelect={()=> toggleBossSelection(boss.id)}
+                    />
+                </motion.div>
             ))}
         </Wrap>
     );
