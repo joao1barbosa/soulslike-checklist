@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { supaClient } from "../services/supabase";
 import { useSelection } from "../hooks/useSelection";
 import { Boss } from "../types/boss";
-import { BossCard } from "./BossCard";  
+import BossCard  from "./BossCard";  
 
 interface Props{
     game: string

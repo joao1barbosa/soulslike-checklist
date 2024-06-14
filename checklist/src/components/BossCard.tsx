@@ -1,6 +1,8 @@
+/* eslint-disable react-refresh/only-export-components */
 import { 
     Card, CardFooter, Text, Divider, Center, WrapItem, VStack, Box
 } from '@chakra-ui/react';
+import { memo } from 'react';
 import { Boss } from '../types/boss';
 import { DlcBadge } from './Badges/DlcBadge';
 import { OptionalBadge } from './Badges/OptionalBadge';
@@ -11,7 +13,7 @@ interface Props{
     onSelect: () => void;
 }
 
-export function BossCard({ boss, selected, onSelect }: Props){
+function BossCard({ boss, selected, onSelect }: Props){
     return (
         <WrapItem onClick={onSelect} cursor='pointer'>
             <Card
@@ -64,3 +66,5 @@ export function BossCard({ boss, selected, onSelect }: Props){
         </WrapItem>
     );
 }
+
+export default memo(BossCard);
