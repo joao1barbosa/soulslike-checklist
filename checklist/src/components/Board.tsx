@@ -1,21 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Wrap } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { supaClient } from "../services/supabase";
 import { useSelection } from "../hooks/useSelection";
+import { useSession } from "../hooks/useSession";
 import { Boss } from "../types/boss";
-import BossCard  from "./BossCard";  
+import { WarningModal } from "./WarningModal";  
+import BossCard  from "./BossCard";
 
 interface Props{
     game: string
 }
 
 export function Board({ game }: Props){
-    const [chosenGame, setChosenGame] = useState<Boss[]>([]);
+    const [bosses, setBosses] = useState<Boss[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [showWarning, setShowWarning] = useState(false);
+    const [warningShown, setWarningShown] = useState<boolean>(false);
+
     const { setTotalBosses, selectedBosses, toggleBossSelection } = useSelection();
+    const { isLogged } = useSession();
 
     useEffect(() => {
         const getBosses = async (value: string) => {
@@ -30,7 +36,7 @@ export function Board({ game }: Props){
                 if (error) throw error;
 
                 setTotalBosses(data.length);
-                setChosenGame(data);
+                setBosses(data);
 
             } catch (error: any) {
                 setError(error);
@@ -41,6 +47,17 @@ export function Board({ game }: Props){
 
         getBosses(game);
     }, [game, setTotalBosses]);
+
+    const handleBossSelection = useCallback((bossId: number) => {
+        if (!isLogged && !warningShown) {
+            setShowWarning(true);
+            setWarningShown(true);
+        }else{
+            toggleBossSelection(bossId);
+        }
+    },[isLogged, warningShown, toggleBossSelection]);
+
+    const closeWarningModal = () => setShowWarning(false);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -57,29 +74,32 @@ export function Board({ game }: Props){
     };
 
     return (
-        <Wrap
-            spacing='24px'
-            justify='center'
-            align='center'
-            h='100%'
-            w='100%'
-        >
-            {chosenGame.map((boss, index) => (
-                <motion.div
-                    key={boss.id}
-                    custom={index}
-                    initial="hidden"
-                    animate="visible"
-                    variants={variants}
-                >
-                    <BossCard 
-                        key={boss.id} 
-                        boss={boss}
-                        selected={selectedBosses.includes(boss.id)}
-                        onSelect={()=> toggleBossSelection(boss.id)}
-                    />
-                </motion.div>
-            ))}
-        </Wrap>
+        <>
+            <WarningModal isOpen={showWarning} onClose={closeWarningModal}/>
+            <Wrap
+                spacing='24px'
+                justify='center'
+                align='center'
+                h='100%'
+                w='100%'
+            >
+                {bosses.map((boss, index) => (
+                    <motion.div
+                        key={boss.id}
+                        custom={index}
+                        initial="hidden"
+                        animate="visible"
+                        variants={variants}
+                    >
+                        <BossCard 
+                            key={boss.id} 
+                            boss={boss}
+                            selected={selectedBosses.includes(boss.id)}
+                            onSelect={()=> handleBossSelection(boss.id)}
+                        />
+                    </motion.div>
+                ))}
+            </Wrap>
+        </>
     );
 }
