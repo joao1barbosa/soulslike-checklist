@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect, useState } from "react";
 import { Wrap } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import { supaClient } from "../services/supabase";
 import { useSelection } from "../hooks/useSelection";
 import { useSession } from "../hooks/useSession";
@@ -62,17 +61,6 @@ export function Board({ game }: Props){
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    const variants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: (i: number) => ({
-            opacity: 1,
-            y: 0,
-            transition: {
-                delay: i * 0.1
-            }
-        })
-    };
-
     return (
         <>
             <WarningModal isOpen={showWarning} onClose={closeWarningModal}/>
@@ -84,20 +72,13 @@ export function Board({ game }: Props){
                 w='100%'
             >
                 {bosses.map((boss, index) => (
-                    <motion.div
-                        key={boss.id}
-                        custom={index}
-                        initial="hidden"
-                        animate="visible"
-                        variants={variants}
-                    >
-                        <BossCard 
-                            key={boss.id} 
-                            boss={boss}
-                            selected={selectedBosses.includes(boss.id)}
-                            onSelect={()=> handleBossSelection(boss.id)}
-                        />
-                    </motion.div>
+                    <BossCard 
+                        key={boss.id} 
+                        boss={boss}
+                        selected={selectedBosses.includes(boss.id)}
+                        onSelect={()=> handleBossSelection(boss.id)}
+                        index={index}
+                    />
                 ))}
             </Wrap>
         </>
